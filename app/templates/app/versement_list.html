@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="home">
+        <div>
+            <h2><a href="{% url 'home' %}" class="accuil">Home</a></h2>
+        </div>
+        <div>
+            <h2><a href="{% url 'versement_add' %}">New</a></h2>
+        </div>
+
+        <div>
+            <h3><a href="{% url 'logout_user' %}" class="out">Deconnection</a></h3>
+        </div>
+    </div>
+
+   <table class="tab-home">
+      <caption>Liste Versement</caption>
+
+      <tr>
+         <th>prenom & nom</th>
+         <th>tel</th>
+         <th>adresse</th>
+         <th>Restant</th>
+         <th>Versement</th>
+         <th>Date Achat</th>
+         <th>Action</th>
+      </tr>
+      {% for m in clients %}
+      <tr class="impaire">
+         <td><a href=" {% url 'moratoire_list' %} ">{{ m.client_moratoire.prenom }} {{ m.client_moratoire.nom }}</a></td>
+         <td>{{ m.client_moratoire.tel}}</td>
+         <td>{{ m.client_moratoire.adresse }}</td>
+         <td>{{ m.restant_v }}</td>
+         <td>{{ m.versement }}</td>
+         <td>{{ m.date_versement }}</td>
+         <td><a href="{% url 'versement_delete' m.id %}">Delete</a></td>
+      </tr>
+       {% endfor %}
+
+   </table>
+</div>
+{% endblock %}

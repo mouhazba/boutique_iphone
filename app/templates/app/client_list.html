@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="home">
+      <div><h2><a href="{% url 'home' %}" class="accuil">Home</a></h2></div>
+      <div><h2><a href="{% url 'client_add' %}">New</a></h2></div>
+      <div><h3><a href="{% url 'logout_user' %}" class="out">Deconnection</a></h3></div>
+    </div>
+
+    <table class="tab-home">
+      <caption>Liste des client</caption>
+
+      <tr>
+         <th>prenom</th>
+         <th>nome</th>
+         <th>tel</th>
+         <th>adresse</th>
+         <th>modele</th>
+         <th>quantity</th>
+         <th>Montant</th>
+         <th>Date Achat</th>
+         <th>Action</th>
+      </tr>
+       {% for cl in clients %}
+      <tr class="impaire">
+         <td>{{ cl.prenom }}</td>
+         <td>{{ cl.nom }}</td>
+         <td>{{ cl.tel}}</td>
+         <td>{{ cl.adresse }}</td>
+         <td>{{ cl.iphone.model }}{{ cl.iphone.category }}/{{ cl.iphone.taille }}</td>
+         <td>{{ cl.quantity }}</td>
+         <td>{{ cl.montant }}</td>
+         <td>{{ cl.date_achat }}</td>
+         <td><a href=" {% url 'client_update' cl.id %} ">Modifier</a></td>
+      </tr>
+       {% endfor %}
+
+   </table>
+</div>
+
+{% endblock %}

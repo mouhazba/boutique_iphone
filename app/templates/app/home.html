@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+ <div class="container">
+      <div class="home">
+          <div class="create">
+
+              <div><h2><a href="{% url 'home' %}" class="accuil">Home</a></h2></div>
+              <div><h2><a href="{% url 'iphone_add' %}">Iphone</a></h2></div>
+              <div><h2><a href="{% url 'client_add' %}">Client</a></h2></div>
+              <div><h2><a href="{% url 'moratoire_add' %}">Moratoire</a></h2></div>
+              <div><h2><a href="{% url 'versement_add' %}">Versement</a></h2></div>
+
+          </div>
+          <div class="info">
+              <div><h2>3 clients</h2></div>
+              <div><h2>5 client5 en moratoire</h2></div>
+              <div><h2>rupture de stock 12promax-128go</h2></div>
+          </div>
+         <div class="listes">
+          <div><h2><a href="{% url 'client_list' %}">List_Client</a></h2></div>
+          <div><h2><a href="{% url 'moratoire_list' %}">List_Client Moratoire</a></h2></div>
+          <div><h2><a href="{% url 'versement_list' %}">List_Versement</a></h2></div>
+          <div><h3><a href="{% url 'logout_user' %}" class="out">Deconnection</a></h3></div>
+         </div>
+
+    </div>
+      <table class="tab-home">
+      <caption>Iphones: Model et prix marcher</caption>
+
+      <tr>
+         <th>Ime</th>
+         <th>Model</th>
+         <th>Category</th>
+         <th>Taille</th>
+         <th>Stock</th>
+         <th>Prix Acquisition</th>
+         <th>Prix Marcher</th>
+         <th>Date Acquisition</th>
+         <th>Action</th>
+      </tr>
+      {% for p in iphones %}
+      <tr class="impaire">
+         <td>{{ p.ime }}</td>
+         <td>{{ p.model }}</td>
+         <td>{{ p.category }}</td>
+         <td>{{ p.taille }}</td>
+         <td>{{ p.stock }}</td>
+         <td>{{ p.price_acquisition }}</td>
+         <td>{{ p.price_marcher }}</td>
+         <td>{{ p.date_acquisition }}</td>
+         <td><a href="{% url 'iphone_update' p.id %}">Modifier</a></td>
+      </tr>
+       {% endfor %}
+
+   </table>
+ </div>
+
+
+
+{% endblock %}

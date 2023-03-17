@@ -1,0 +1,187 @@
+{% load static %}
+
+:root{
+    --couleur-blatre: rgba(66, 66, 87,0.6);
+    --couleur-blachatre:  rgba(255,255,255,0.9);
+    --couleur-green:
+
+}
+body
+{
+    background-color: #1e1e2f;
+    margin: 0;
+    padding: 0;
+
+}
+#container{
+    width: 41%;
+    margin: 100px auto;
+    color: var(--couleur-blachatre);
+    padding: 30px;
+
+}
+.header_title{
+            text-align: center;
+            font-style: italic;
+}
+#title{
+    margin-bottom: 0;
+}
+#description{
+    font-size: 1.2em;
+
+}
+#description a{
+    color: red;
+    font-size: 1.2em;
+    text-style: none;
+    text-decoration: none;
+}
+#survey-form{
+    margin-top: 45px;
+    padding: 40px;
+    background-color:  var(--couleur-blatre,#f1f1f1);
+    box-shadow: 10px 10px transparent;/* 2 ou 4 valeurs*/
+    border-radius: 10px;
+        font-size: 1.2em;
+
+}
+label{
+    display: block;
+    width: 100%;
+    font-size: large;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.champs-input{
+    width: 93%;
+    padding: 10px;
+    margin-bottom: 10px;
+
+}
+.choix{
+    margin-top: 20px;
+    margin-bottom: 30px;
+    vertical-align: top;
+
+
+}
+.choice{
+    margin-top: 20px;
+    margin-bottom: 30px;
+
+
+}
+input[type='radio']{
+    width: 22px;
+    height: 20px;
+    vertical-align: text-top;
+
+
+}
+.dropdown{
+    width: 98%;
+    padding: 10px;
+    font-size: 0.9em;
+
+}
+
+input[type='checkbox']{
+    width: 18px;
+    height: 18px;
+    vertical-align: text-top;
+
+
+}
+
+#texte{
+    padding: 20px;
+}
+#submit{
+    width: 99%;
+    padding: 20px;
+    margin-top: 10px;
+    color: var(--couleur-blachatre);
+    background-color: #e14eca;
+    font-size: 1.1em;
+    font-weight: 700;
+}
+.reg{
+    color: white;
+}
+.error_data{
+    color: red;
+}
+
+
+/* Home ***************************************/
+.grille{
+    background: red;
+    display: grid;
+    gridtemplate-columns: 1fr 2fr;
+}
+.home{
+     color: white;
+     display: grid;
+     grid-template-columns: 1fr 1fr 1fr;
+     margin-bottom: 40px;
+     padding: 25px;
+
+}
+.home .accuil{
+    color: #fc0;
+}
+.home h2{
+    cursor:pointer;
+}
+.home .out{
+    color: red;
+}
+.home a{
+    color:white;
+    text-style: none;
+    text-decoration: none;
+}
+.tab-home{
+    bordel-collapse: collapse;
+    width:100%;
+    margin: 0;
+    padding: 10px;
+}
+.tab-home caption{
+    color:#fff;
+    text-transform:full-size-kana;
+    padding-bottom:4px;
+}
+
+.tab-home th{
+    background-color: #060;
+    padding:12px;
+    color:white;
+    text-transform:uppercase;
+}
+
+.tab-home td{
+    padding:15px:
+    text-align:center;
+    border: 1px solid #060;
+    text-align:center;
+}
+
+.tab-home td a{
+    text-style: none;
+    text-decoration: none;
+}
+.impaire{
+     background-color: #cf6;
+}
+.paire{
+     background-color: #3f0;
+}
+
+
+
+
+
+

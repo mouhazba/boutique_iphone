@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="container">
+       <div class="header_title">
+            <h1 id="title">Welcome to my Iphone_Store</h1>
+            <p id="description"><a href="{% url 'versement_list' %}">Annuler</a></p>
+       </div>
+     {% if info_stock %}
+         <h3 class="error_data">
+             <span class="">{{ info_stock | safe }}</span>
+         </h3>
+       {% endif %}
+      {% if msg %}
+         <h3 class="error_data">
+             <span class="">{{ msg | safe }}</span>
+         </h3>
+       {% else %}
+       <form id="survey-form" method="POST">
+           {% csrf_token %}
+           <div class="row">
+               {{ form }}
+           </div>
+           <button id="submit" class="champs-input">Valider</button>
+       </form>
+        {% endif %}
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{% static 'js/script.js'   %}"></script>
+{% endblock javascripts %}

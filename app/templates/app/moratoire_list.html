@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+   <div class="home">
+       <div>
+          <h2><a href="{% url 'home' %}" class="accuil">Home</a></h2>
+       </div>
+       <div>
+          <h2><a href="{% url 'versement_list' %}">List_Versement</a></h2>
+          <h2><a href="{% url 'moratoire_add' %}">New</a></h2>
+       </div>
+
+       <div><h3><a href="{% url 'logout_user' %}" class="out">Deconnection</a></h3></div>
+    </div>
+
+   <table class="tab-home">
+      <caption>Liste clients Moratoire</caption>
+
+      <tr>
+         <th>prenom</th>
+         <th>nome</th>
+         <th>tel</th>
+         <th>adresse</th>
+         <th>model-model</th>
+         <th>Stock</th>
+         <th>Quantity</th>
+         <th>Prix tel</th>
+         <th>Avance</th>
+         <th>Restant</th>
+         <th>Date Achat</th>
+         <th>Action</th>
+      </tr>
+      {% for m in clients %}
+      <tr class="impaire">
+         <td>{{ m.prenom }}</td>
+         <td>{{ m.nom }}</td>
+         <td>{{ m.tel}}</td>
+         <td>{{ m.adresse }}</td>
+         <td>{{ m.iphone.model}}-{{m.iphone.category}}/{{ m.iphone.taille}}</td>
+         <td>{{ m.iphone.stock }}</td>
+         <td>{{ m.quantity }}</td>
+         <td>{{ m.montant }}</td>
+         <td>{{ m.avance }}</td>
+         <td>{{ m.restant }}</td>
+         <td>{{ m.date }}</td>
+         <td><a href="{% url 'moratoire_update' m.id %}">Modifier</a></td>
+      </tr>
+       {% endfor %}
+
+   </table>
+</div>
+
+{% endblock %}
