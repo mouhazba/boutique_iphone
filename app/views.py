@@ -80,18 +80,17 @@ def client_add(request):
             else:
                 info_stock = 'Stock insuffisant'
                 form = ClientForm()
-                return render(request, 'app/client_add.html', {'info_stock': info_stock, 'form': form})
+                return render(request, 'app/clients/client_add.html', {'info_stock': info_stock, 'form': form})
         else:
             msg = "erreur"
     else:
         form = ClientForm()
-        #form = ClientForm(initial={'nom': "mama", 'iphone': stock_models_iphone, 'prenom': 'faye'})
-    return render(request, 'app/client_add.html', {'form': form, 'msg': msg})
+    return render(request, 'app/clients/client_add.html', {'form': form, 'msg': msg})
 
 
 def client_list(request):
     clients = Client.objects.all()
-    return render(request, 'app/client_list.html', {'clients': clients})
+    return render(request, 'app/clients/client_list.html', {'clients': clients})
 
 
 def client_edit(request, id_client):
@@ -124,14 +123,14 @@ def client_edit(request, id_client):
 
         else:
             info_stock = "stock insuffisant"
-            return render(request, 'app/client_edit.html', {'form': form, 'info_stock': info_stock})
+            return render(request, 'app/clients/client_edit.html', {'form': form, 'info_stock': info_stock})
 
-    return render(request, 'app/client_edit.html', {'form': form})
+    return render(request, 'app/clients/client_edit.html', {'form': form})
 
 
 def client_detail(request, id_client):
     client = get_object_or_404(Client, id=id_client)
-    return render(request, 'app/client_detail.html', {'client': client})
+    return render(request, 'app/clients/client_detail.html', {'client': client})
 
 
 # client Moratoire ******************************************************************
@@ -154,17 +153,17 @@ def client_moratoire_add(request):
             else:
                 info_stock = 'Stock insuffisant'
                 form = MoratoireForm()
-                return render(request, 'app/moratoire_add.html', {'info_stock': info_stock, 'form': form})
+                return render(request, 'app/moratoires/moratoire_add.html', {'info_stock': info_stock, 'form': form})
         else:
             msg = "erreur"
     else:
         form = MoratoireForm()
-    return render(request, 'app/moratoire_add.html', {'form': form, 'msg': msg})
+    return render(request, 'app/moratoires/moratoire_add.html', {'form': form, 'msg': msg})
 
 
 def client_list_moratoire(request):
     clients_moratoire = Moratoire.objects.all()
-    return render(request, 'app/moratoire_list.html', {'clients': clients_moratoire})
+    return render(request, 'app/moratoires/moratoire_list.html', {'clients': clients_moratoire})
 
 
 def client_moratoire_edit(request, id_client):
@@ -200,14 +199,14 @@ def client_moratoire_edit(request, id_client):
 
         else:
             info_stock = "stock insuffisant"
-            return render(request, 'app/moratoire_edit.html', {'form': form, 'info_stock': info_stock})
+            return render(request, 'app/moratoires/moratoire_edit.html', {'form': form, 'info_stock': info_stock})
 
-    return render(request, 'app/moratoire_edit.html', {'form': form})
+    return render(request, 'app/moratoires/moratoire_edit.html', {'form': form})
 
 
 def client_moratoire_detail(request, id_client):
     client = get_object_or_404(Moratoire, id=id_client)
-    return render(request, 'app/moratoire_detail.html', {'client': client})
+    return render(request, 'app/moratoires/moratoire_detail.html', {'client': client})
 
 
 def client_moratoire_delete(request, id_client):
@@ -216,7 +215,8 @@ def client_moratoire_delete(request, id_client):
         client.delete()
         return redirect('moratoire_list')
 
-    return render(request, 'app/moratoire_delete.html', {'client': client})
+    return render(request, 'app/moratoires/moratoire_delete.html', {'client': client})
+
 
 # client Versement ******************************************************************
 def versement_add(request):
@@ -255,22 +255,22 @@ def versement_add(request):
                 else:
                     info_stock = 'No change'
                     form = VersementForm()
-                    return render(request, 'app/versement_add.html', {'info_stock': info_stock, 'form': form})
+                    return render(request, 'app/versements/versement_add.html', {'info_stock': info_stock, 'form': form})
             else:
                 info_stock = 'plus de restant'
                 form = VersementForm()
-                return render(request, 'app/versement_add.html', {'info_stock': info_stock, 'form': form})
+                return render(request, 'app/versements/versement_add.html', {'info_stock': info_stock, 'form': form})
         else:
             msg = "erreur"
     else:
         form = VersementForm()
 
-    return render(request, 'app/versement_add.html', {'form': form, 'msg': msg})
+    return render(request, 'app/versements/versement_add.html', {'form': form, 'msg': msg})
 
 
 def versement_list(request):
     clients_moratoire = Versement.objects.all()
-    return render(request, 'app/versement_list.html', {'clients': clients_moratoire})
+    return render(request, 'app/versements/versement_list.html', {'clients': clients_moratoire})
 
 
 def versement_delete(request, id_client):
@@ -279,9 +279,9 @@ def versement_delete(request, id_client):
         client.delete()
         return redirect('versement_list')
 
-    return render(request, 'app/versement_delete.html', {'client': client})
+    return render(request, 'app/versements/versement_delete.html', {'client': client})
 
 
 def versement_detail(request, id_client):
     client = get_object_or_404(Versement, id=id_client)
-    return render(request, 'app/versement_detail.html', {'client': client})
+    return render(request, 'app/versements/versement_detail.html', {'client': client})

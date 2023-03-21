@@ -118,13 +118,19 @@ input[type='checkbox']{
 /* Home ***************************************/
 h1{
     text-align: center;
+    margin-top: 50px;
 }
  h2{
     cursor:pointer;
+    text-align: center;
+
 }
 
 .home h2 a{
     color: #fc0;
+}
+.info{
+    margin-left: 20px;
 }
 .info p:first-child{
     color: #fc0;
@@ -190,6 +196,7 @@ h1{
     padding: 30px 0px 40px 0px;
     background-color: #060;
     margin-bottom: 20px;
+    margin: 25px 10px;
 }
 
 
@@ -282,7 +289,7 @@ a {
 }
 .impaire a{
         font-weight: bold;
-        color: #000;
+        color: #1e1e2f;
 }
 .paire{
      background-color: #3f0;

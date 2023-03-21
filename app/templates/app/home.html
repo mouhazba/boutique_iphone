@@ -7,25 +7,21 @@
           <h1> Welcome to my Iphone_Store</h1>
           <h2><a href="{% url 'home' %}">Home</a></h2>
           <div class="info">
-              <p>Info live =
-                  <span>client(s) : {{ clients.count }} </span>
-                  <span class="sep_deb">client(s) moratoires : {{ mora.count }}</span>
-                  <span class="sep_deb">
+              <p>Info live : </p>
+                  <p class="sep_deb">client(s) : {{ clients.count }} </p>
+                  <p class="sep_deb">client(s) moratoires : {{ mora.count }}</p>
+                  <p class="sep_deb">
                       rupture de stock :
                       {% for st in stock %}
-                      {{ st.model }}
-                      {{ st.category }}
-                        {{ st.taille }},
-                  {% endfor %}
-                  </span>
-              </p>
-
-              <p></p>
-              <p>
-              </p>
+                        <span>
+                            {{ st.model }}
+                            {{ st.category }}
+                            {{ st.taille }} <=>
+                        </span>
+                      {% endfor %}
+                  </p>
 
           </div>
-
       </div>
 
      <div class="fister">

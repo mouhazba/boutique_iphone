@@ -3,20 +3,13 @@
 
 {% block content %}
 <div class="container">
-       <div class="home">
-          <h1> Welcome to my Iphone_Store</h1>
-          <h2><a href="{% url 'home' %}">Home</a></h2>
-          <div class="info">
-              <p>Info live</p>
-              <p>Certainement des infos par ici</p>
+    <div class="home">
+        <h1> Welcome to my Iphone_Store</h1>
+    </div>
 
-
-          </div>
-
-      </div>
-
-     <div class="fister">
+    <div class="fister">
          <div class="lefter">
+             <a href="{% url 'home' %}">back to Home</a>
              <a href="{% url 'client_list' %}">Client_List</a>
              <a href="{% url 'moratoire_list' %}">Moratoire_List</a>
              <a href="{% url 'versement_list' %}">Client_Versement</a>
@@ -32,35 +25,39 @@
              <a href="{% url 'logout_user' %}" id="active">Logout</a>
          </div>
      </div>
-     <div class="annuler"></div>
-   <table class="tab-home">
-      <caption>Liste Versement</caption>
+    <div class="annuler"></div>
+    <table class="tab-home">
+      <caption>Liste des client</caption>
 
       <tr>
-         <th>prenom & nom</th>
+         <th>prenom</th>
+         <th>nome</th>
          <th>tel</th>
          <th>adresse</th>
-         <th>Restant</th>
-         <th>Versement</th>
+         <th>modele</th>
+         <th>quantity</th>
+         <th>Montant</th>
          <th>Date Achat</th>
          <th>Action</th>
       </tr>
-      {% for m in clients %}
+       {% for cl in clients %}
       <tr class="impaire">
-         <td><a href=" {% url 'moratoire_list' %} ">{{ m.client_moratoire.prenom }}
-             {{ m.client_moratoire.nom }}</a></td>
-         <td>{{ m.client_moratoire.tel}}</td>
-         <td>{{ m.client_moratoire.adresse }}</td>
-         <td>{{ m.restant_v }}</td>
-         <td>{{ m.versement }}</td>
-         <td>{{ m.date_versement }}</td>
+         <td>{{ cl.prenom }}</td>
+         <td>{{ cl.nom }}</td>
+         <td>{{ cl.tel}}</td>
+         <td>{{ cl.adresse }}</td>
+         <td>{{ cl.iphone.model }}{{ cl.iphone.category }}/{{ cl.iphone.taille }}</td>
+         <td>{{ cl.quantity }}</td>
+         <td>{{ cl.montant }}</td>
+         <td>{{ cl.date_achat }}</td>
          <td>
-             <a href="{% url 'versement_delete' m.id %}">Delete</a>
-             <a href="{% url 'versement_detail' m.id %}">Voir</a>
+             <a href=" {% url 'client_update' cl.id %} ">Modifier</a>
+             <a href=" {% url 'client_detail' cl.id %} ">Voir</a>
          </td>
       </tr>
        {% endfor %}
 
    </table>
 </div>
+
 {% endblock %}
