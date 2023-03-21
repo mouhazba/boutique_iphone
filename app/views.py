@@ -32,7 +32,11 @@ def register(request):
 
 def home(request):
     iphones = Iphone.objects.all()
-    return render(request, 'app/home.html', {'iphones': iphones})
+    stock = iphones.filter(stock__lte=0)
+
+    clients = Client.objects.all()
+    mora = Moratoire.objects.all()
+    return render(request, 'app/home.html', {'iphones': iphones, 'stock': stock, 'clients': clients, 'mora': mora})
 
 
 def iphone_add(request):
@@ -60,11 +64,6 @@ def iphone_update(request, id_iphone):
 
 # client Simple ******************************************************************
 def client_add(request):
-    '''stock_models_iphone = Iphone.objects.all().filter(stock__gt=0)
-
-    init_values = {'iphone': stock_models_iphone, 'nome': 'mouhaz'}
-    print(init_values)
-'''
     msg = None
     info_stock = None
     if request.method == "POST":
@@ -128,6 +127,11 @@ def client_edit(request, id_client):
             return render(request, 'app/client_edit.html', {'form': form, 'info_stock': info_stock})
 
     return render(request, 'app/client_edit.html', {'form': form})
+
+
+def client_detail(request, id_client):
+    client = get_object_or_404(Client, id=id_client)
+    return render(request, 'app/client_detail.html', {'client': client})
 
 
 # client Moratoire ******************************************************************
@@ -201,32 +205,50 @@ def client_moratoire_edit(request, id_client):
     return render(request, 'app/moratoire_edit.html', {'form': form})
 
 
+def client_moratoire_detail(request, id_client):
+    client = get_object_or_404(Moratoire, id=id_client)
+    return render(request, 'app/moratoire_detail.html', {'client': client})
+
+
+def client_moratoire_delete(request, id_client):
+    client = get_object_or_404(Moratoire, id=id_client)
+    if request.method == 'POST':
+        client.delete()
+        return redirect('moratoire_list')
+
+    return render(request, 'app/moratoire_delete.html', {'client': client})
+
 # client Versement ******************************************************************
 def versement_add(request):
-    versement_existant = Versement.objects.all()
-
-    #init_values = {'iphone': stock_models_iphone, 'nome': 'mouhaz'}
-    print(versement_existant)
-
     msg = None
     info_stock = None
     if request.method == "POST":
+        client_id = request.POST['client_moratoire']
         form = VersementForm(request.POST or None)
+        moratoire_id = get_object_or_404(Moratoire, id=client_id)
+        v_list = Versement.objects.all().filter(restant_v__gte=0)
+        tel = moratoire_id.tel
+
+        def get_Restant():
+            for v in v_list:
+                if v.client_moratoire.tel == tel:
+                    restantX = v.restant_v
+                    return restantX
+            return 0
+
+        restant = get_Restant()
+
         if form.is_valid():
             fv = form.save(commit=False)
-            print('client req', fv.client_moratoire )
             if fv.client_moratoire.restant != 0:
                 if fv.versement != 0:
-                    if fv.restant_v == 0:
-                        print("existant")
-                        fv.restant_v = fv.restant_v - fv.versement
+                    if restant == 0:
+                        fv.restant_v = fv.client_moratoire.restant - fv.versement
                         fv.save()
                         return redirect('versement_list')
+
                     else:
-                        print("nouvau")
-                        fv.client_moratoire.avance += fv.versement
-                        fv.restant_v = fv.client_moratoire.restant - fv.versement
-                        fv.client_moratoire.save()
+                        fv.restant_v = restant - fv.versement
                         fv.save()
                         return redirect('versement_list')
 
@@ -253,5 +275,13 @@ def versement_list(request):
 
 def versement_delete(request, id_client):
     client = get_object_or_404(Versement, id=id_client)
-    client.delete()
-    return redirect('versement_list')
+    if request.method == 'POST':
+        client.delete()
+        return redirect('versement_list')
+
+    return render(request, 'app/versement_delete.html', {'client': client})
+
+
+def versement_detail(request, id_client):
+    client = get_object_or_404(Versement, id=id_client)
+    return render(request, 'app/versement_detail.html', {'client': client})

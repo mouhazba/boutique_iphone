@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+   <div class="detail">
+          <h1> Welcome to my Iphone_Store</h1>
+          <div class="detail-style">
+              <p><strong>Reçu (Moratoire) du : {{ client.date}}</strong></p>
+              <p>
+                  <strong>Prenom & Nom : {{ client.prenom }} {{ client.nom }}</strong>
+              </p>
+              <p>
+                  <strong>Adresse : {{ client.adresse }}</strong>
+              </p>
+              <p>
+                  <strong>Telephone : {{ client.tel }}</strong>
+              </p>
+              <p>
+                  <strong>Model : {{ client.iphone.model }} {{ client.iphone.category }}/
+                      {{ client.iphone.taille }} go
+                  </strong>
+              </p>
+              <p>
+                  <strong>Prix : {{ client.montant }} 000 fcfa</strong>
+              </p>
+              <p>
+                  <strong>Avance : {{ client.avance }} 000 fcfa</strong>
+              </p>
+               <p>
+                  <strong>Restant : {{ client.restant }} 000 fcfa</strong>
+              </p>
+
+          </div>
+
+      </div>
+
+{% endblock %}

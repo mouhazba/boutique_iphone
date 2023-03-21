@@ -15,13 +15,17 @@ urlpatterns = [
     path('client_add', client_add, name='client_add'),
     path('client_list', client_list, name='client_list'),
     path('client_edit/<int:id_client>', client_edit, name='client_update'),
+    path('client_detail/<int:id_client>', client_detail, name='client_detail'),
 
     path('client_moratoire_add', client_moratoire_add, name='moratoire_add'),
     path('client_moratoire_list', client_list_moratoire, name='moratoire_list'),
     path('moratoire_edit/<int:id_client>', client_moratoire_edit, name='moratoire_update'),
+    path('moratoire_detail/<int:id_client>', client_moratoire_detail, name='moratoire_detail'),
+    path('moratoire_delete/<int:id_client>', client_moratoire_delete, name='moratoire_delete'),
 
     path('versement_add', versement_add, name='versement_add'),
     path('versement_list', versement_list, name='versement_list'),
     path('versement_delete/<int:id_client>', versement_delete, name='versement_delete'),
+    path('versement_detail/<int:id_client>', versement_detail, name='versement_detail'),
 
 ]

@@ -3,19 +3,36 @@
 
 {% block content %}
 <div class="container">
-    <div class="home">
-        <div>
-            <h2><a href="{% url 'home' %}" class="accuil">Home</a></h2>
-        </div>
-        <div>
-            <h2><a href="{% url 'versement_add' %}">New</a></h2>
-        </div>
+       <div class="home">
+          <h1> Welcome to my Iphone_Store</h1>
+          <h2><a href="{% url 'home' %}">Home</a></h2>
+          <div class="info">
+              <p>Info live</p>
+              <p>Certainement des infos par ici</p>
 
-        <div>
-            <h3><a href="{% url 'logout_user' %}" class="out">Deconnection</a></h3>
-        </div>
-    </div>
 
+          </div>
+
+      </div>
+
+     <div class="fister">
+         <div class="lefter">
+             <a href="{% url 'client_list' %}">Client_List</a>
+             <a href="{% url 'moratoire_list' %}">Moratoire_List</a>
+             <a href="{% url 'versement_list' %}">Client_Versement</a>
+
+
+             <a href="{% url 'iphone_add' %}" class="sep_deb">New_Iphone</a>
+             <a href="{% url 'client_add' %}">New_Client</a>
+             <a href="{% url 'moratoire_add' %}" >New_Moratoire</a>
+             <a href="{% url 'versement_add' %}" class="sep_fin">New_Versement</a>
+         </div>
+         <div class="righter">
+             <a href="{% url 'register' %}">Register</a>
+             <a href="{% url 'logout_user' %}" id="active">Logout</a>
+         </div>
+     </div>
+     <div class="annuler"></div>
    <table class="tab-home">
       <caption>Liste Versement</caption>
 
@@ -30,13 +47,17 @@
       </tr>
       {% for m in clients %}
       <tr class="impaire">
-         <td><a href=" {% url 'moratoire_list' %} ">{{ m.client_moratoire.prenom }} {{ m.client_moratoire.nom }}</a></td>
+         <td><a href=" {% url 'moratoire_list' %} ">{{ m.client_moratoire.prenom }}
+             {{ m.client_moratoire.nom }}</a></td>
          <td>{{ m.client_moratoire.tel}}</td>
          <td>{{ m.client_moratoire.adresse }}</td>
          <td>{{ m.restant_v }}</td>
          <td>{{ m.versement }}</td>
          <td>{{ m.date_versement }}</td>
-         <td><a href="{% url 'versement_delete' m.id %}">Delete</a></td>
+         <td>
+             <a href="{% url 'versement_delete' m.id %}">Delete</a>
+             <a href="{% url 'versement_detail' m.id %}">Voir</a>
+         </td>
       </tr>
        {% endfor %}
 

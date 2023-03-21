@@ -116,33 +116,139 @@ input[type='checkbox']{
 
 
 /* Home ***************************************/
-.grille{
-    background: red;
-    display: grid;
-    gridtemplate-columns: 1fr 2fr;
+h1{
+    text-align: center;
 }
-.home{
-     color: white;
-     display: grid;
-     grid-template-columns: 1fr 1fr 1fr;
-     margin-bottom: 40px;
-     padding: 25px;
-
-}
-.home .accuil{
-    color: #fc0;
-}
-.home h2{
+ h2{
     cursor:pointer;
 }
-.home .out{
-    color: red;
+
+.home h2 a{
+    color: #fc0;
 }
-.home a{
-    color:white;
-    text-style: none;
+.info p:first-child{
+    color: #fc0;
+    font-size: 20px;
+    font-weight: bold;
+
+
+}
+.delete{
+     with: 500px;
+     padding: 10px;
+     margin: 140px auto;
+     text-align: center;
+     color: #fc0;
+}
+.delete h1{
+    font-size: 32px;
+}
+
+.delete input, .delete a{
+    width: 150px;
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+    outline : solide;
+    background-color: red;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.delete a{
+    background-color: #060;
+
+}
+
+.delete input:hover, .delete a:hover{
+    color: #fc0;
+    transform: scale(0.9);
+    transition: all 0.5s;
+}
+
+
+.delete p{
+    font-size: 22px;
+    margin-bottom: 40px;
+}
+
+
+.detail {
+    with: 700px;
+    padding: 10px;
+    background-color: white;
+    margin: 140px auto;
+    text-align: center;
+}
+.detail h1{
+    font-size: 37px;
+}
+.detail-style {
+    font-size: 25px;
+}
+.fister{
+    padding: 30px 0px 40px 0px;
+    background-color: #060;
+    margin-bottom: 20px;
+}
+
+
+.fister a {
+    color: white;
+    font-size: 1.1;
+    font-weight: bold;
+}
+
+.lefter {
+    float: left;
+    margin-left: 20px;
+}
+
+.sep_deb{
+    border-left: 20px solid #fc0;
+    padding-left: 10px;
+}
+.sep_fin{
+    border-right: 20px solid #fc0;
+    padding-right: 10px;
+
+}
+
+.fister a:hover {
+    color:  #fc0;
+    text-decoration: underline;
+}
+
+#active {
+    color: #fc0;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.righter {
+    float: right;
+    margin-right: 20px;
+}
+
+.lefter a:nth-child(n+2),
+.righter a {
+    margin-left: 20px;
+}
+.annuler {
+    clear: both;
+}
+
+a {
     text-decoration: none;
+    display: inline-block;
 }
+
+.home{
+     color: white;
+     margin-bottom: 20px;
+
+}
+
 .tab-home{
     bordel-collapse: collapse;
     width:100%;
@@ -150,9 +256,11 @@ input[type='checkbox']{
     padding: 10px;
 }
 .tab-home caption{
-    color:#fff;
+    color: #fc0;
     text-transform:full-size-kana;
-    padding-bottom:4px;
+    padding-bottom:3px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .tab-home th{
@@ -169,18 +277,20 @@ input[type='checkbox']{
     text-align:center;
 }
 
-.tab-home td a{
-    text-style: none;
-    text-decoration: none;
-}
 .impaire{
      background-color: #cf6;
+}
+.impaire a{
+        font-weight: bold;
+        color: #000;
 }
 .paire{
      background-color: #3f0;
 }
 
-
+/*
+ tr:nth-chield(2n +1 ):
+*/
 
 
 

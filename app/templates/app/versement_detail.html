@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+   <div class="detail">
+          <h1> Welcome to my Iphone_Store</h1>
+          <div class="detail-style">
+              <p>
+                  <strong>Reçu (Versement) du : {{ client.date_versement }}</strong>
+              </p>
+              <p>
+                  <strong>Prenom & Nom : {{ client.client_moratoire.prenom }} {{ client.client_moratoire.nom }}</strong>
+              </p>
+              <p>
+                  <strong>Adresse : {{ client.client_moratoire.adresse }}</strong>
+              </p>
+              <p>
+                  <strong>Telephone : {{ client.client_moratoire.tel }}</strong>
+              </p>
+              <p>
+                  <strong>Versement : {{ client.versement }} 000 fcfa</strong>
+              </p>
+              <p>
+                  <strong>Restant : {{ client.restant_v }} 000 fcfa</strong>
+              </p>
+
+          </div>
+
+      </div>
+
+{% endblock %}
