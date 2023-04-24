@@ -26,3 +26,7 @@ class VersementForm(forms.ModelForm):
         fields = ['client_moratoire', 'versement']
 
 
+'''
+class UserForm(forms.Form):
+    msg = forms.CharField(min_length=5, required=False)
+'''

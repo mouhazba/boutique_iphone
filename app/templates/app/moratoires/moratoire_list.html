@@ -11,7 +11,6 @@
          <div class="lefter">
              <a href="{% url 'home' %}">back to Home</a>
              <a href="{% url 'client_list' %}">Client_List</a>
-             <a href="{% url 'moratoire_list' %}">Moratoire_List</a>
              <a href="{% url 'versement_list' %}">Client_Versement</a>
 
 
@@ -41,7 +40,7 @@
          <th>Avance</th>
          <th>Restant</th>
          <th>Date Achat</th>
-         <th>Action</th>
+         <th colspan="4">Action</th>
       </tr>
       {% for m in clients %}
       <tr class="impaire">
@@ -56,10 +55,10 @@
          <td>{{ m.avance }}</td>
          <td>{{ m.restant }}</td>
          <td>{{ m.date }}</td>
-         <td>
-             <a href="{% url 'moratoire_update' m.id %}">Modifier</a>
-             <a href="{% url 'moratoire_delete' m.id %}">Delete</a>
-             <a href="{% url 'moratoire_detail' m.id %}">Voir</a>
+         <td class="action-td">
+             <td><a href="{% url 'moratoire_update' m.id %}">Modifier</a></td>
+             <td><a href="{% url 'moratoire_delete' m.id %}">Delete</a></td>
+             <td><a href="{% url 'moratoire_detail' m.id %}">Voir</a></td>
          </td>
       </tr>
        {% endfor %}

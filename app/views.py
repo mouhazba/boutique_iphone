@@ -1,9 +1,12 @@
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate, logout
-
+from django.contrib.auth import login, authenticate, logout, get_user_model
 
 from app.models import Iphone, Client, Moratoire, Versement
 from app.forms import IphoneForm, ClientForm, MoratoireForm, VersementForm
+
+
+User = get_user_model()
 
 
 # Create your views here.
@@ -18,7 +21,7 @@ def login_user(request):
             return redirect('home')
         else:
             msg = 'Donnees invalides'
-    return render(request, 'app/index.html', {'msg': msg})
+    return render(request, 'app/accounts/index.html', {'msg': msg})
 
 
 def logout_user(request):
@@ -27,9 +30,24 @@ def logout_user(request):
 
 
 def register(request):
-    return render(request, 'app/register.html')
+    msg = None
+
+    if request.method == 'POST':
+        name = request.POST["username"]
+        pwd1 = request.POST["pwd1"]
+        pwd2 = request.POST["pwd2"]
+
+        if pwd1 == pwd2:
+            user = User.objects.create_user(username=name, password=pwd1)
+            login(request, user)
+        else:
+            msg = 'Mot de passe ne correspondent pas'
+            return render(request, 'app/accounts/register.html', {'msg': msg})
+
+    return render(request, 'app/accounts/register.html')
 
 
+#@user_passes_test(lambda u: u.username == "mahadiou" or u.username == 'abass')
 def home(request):
     iphones = Iphone.objects.all()
     stock = iphones.filter(stock__lte=0)
@@ -50,7 +68,7 @@ def iphone_add(request):
             msg = "erreur"
     else:
         form = IphoneForm()
-    return render(request, 'app/iphone_add.html', {'form': form, 'msg': msg})
+    return render(request, 'app/iphones/iphone_add.html', {'form': form, 'msg': msg})
 
 
 def iphone_update(request, id_iphone):
@@ -59,7 +77,7 @@ def iphone_update(request, id_iphone):
     if form.is_valid():
         form.save()
         return redirect('home')
-    return render(request, 'app/iphone_update.html', {'form': form})
+    return render(request, 'app/iphones/iphone_update.html', {'form': form})
 
 
 # client Simple ******************************************************************
@@ -74,6 +92,8 @@ def client_add(request):
             if f.iphone.stock and f.quantity <= f.iphone.stock:
                 tmp = f.iphone.stock - f.quantity
                 f.iphone.stock = tmp
+                if f.quantity > 1:
+                    f.montant = f.quantity * f.montant
                 f.iphone.save()
                 f.save()
                 return redirect('client_list')
@@ -82,7 +102,9 @@ def client_add(request):
                 form = ClientForm()
                 return render(request, 'app/clients/client_add.html', {'info_stock': info_stock, 'form': form})
         else:
-            msg = "erreur"
+            info_stock = 'Erreur'
+            form = ClientForm()
+            return render(request, 'app/clients/client_add.html', {'info_stock': info_stock, 'form': form})
     else:
         form = ClientForm()
     return render(request, 'app/clients/client_add.html', {'form': form, 'msg': msg})

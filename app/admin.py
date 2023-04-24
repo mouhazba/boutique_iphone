@@ -1,8 +1,14 @@
 from django.contrib import admin
-from .models import Iphone, Client, Moratoire, Versement
+from .models import Iphone, Client, Moratoire, Versement, Manager
 
 
 # Register your models here.
+@admin.register(Manager)
+class ManagerAdmin(admin.ModelAdmin):
+    model = Manager
+    list_display = ['username']
+
+
 @admin.register(Iphone)
 class IphoneAdmin(admin.ModelAdmin):
     model = Iphone

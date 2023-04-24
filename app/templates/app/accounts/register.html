@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+   <div id="container" style="background: url('{% static 'images/bg.jpg' %}');background-repeat: round;">
+       <div class="header_title">
+            <h1 id="title">Welcome to my Iphone_Store</h1>
+            <p id="description">Register</p>
+       </div>
+         {% if msg %}
+         <h3 class="error_data">
+             <span class="">{{ msg | safe }}</span>
+              <p>
+                 <a href="{% url 'register' %}" class="reg">Try again</a> Or
+                 <a href="{% url 'index' %}" class="reg">Cancel</a>
+              </p>
+         </h3>
+       {% else %}
+       <form id="survey-form" method="POST" autocomplete="off">
+            {% csrf_token %}
+           <div class="row">
+                <label for="name">Name </label>
+                <input id="name" type="text" placeholder="name" name="username" class="champs-input" required />
+           </div>
+           <div class="row">
+                <label for="password">Password </label>
+                <input id="password" name="pwd1" type="password" class="champs-input" min="5"required />
+           </div>
+            <div class="row">
+                <label for="pwd2">Confirm Password</label>
+                <input id="pwd2" name="pwd2" type="password" class="champs-input" min="5" required />
+           </div>
+           <button id="submit" >Register</button>
+           <p>
+                 If have an account? <a href="{% url 'index' %}" class="reg">Back to Login</a>
+           </p>
+       </form>
+       {% endif %}
+   </div>
+
+{% endblock %}

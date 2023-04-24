@@ -10,7 +10,6 @@
     <div class="fister">
          <div class="lefter">
              <a href="{% url 'home' %}">back to Home</a>
-             <a href="{% url 'client_list' %}">Client_List</a>
              <a href="{% url 'moratoire_list' %}">Moratoire_List</a>
              <a href="{% url 'versement_list' %}">Client_Versement</a>
 
@@ -38,7 +37,7 @@
          <th>quantity</th>
          <th>Montant</th>
          <th>Date Achat</th>
-         <th>Action</th>
+         <th colspan="3">Action</th>
       </tr>
        {% for cl in clients %}
       <tr class="impaire">
@@ -50,9 +49,9 @@
          <td>{{ cl.quantity }}</td>
          <td>{{ cl.montant }}</td>
          <td>{{ cl.date_achat }}</td>
-         <td>
-             <a href=" {% url 'client_update' cl.id %} ">Modifier</a>
-             <a href=" {% url 'client_detail' cl.id %} ">Voir</a>
+         <td class="action-td">
+             <td><a href=" {% url 'client_update' cl.id %} ">Modifier</a></td>
+             <td><a href=" {% url 'client_detail' cl.id %} ">Voir</a></td>
          </td>
       </tr>
        {% endfor %}

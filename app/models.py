@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 from django.utils import timezone
@@ -27,6 +28,10 @@ TAILLE = (
     ('256', 256),
     ('512', 512),
 )
+
+
+class Manager(AbstractUser):
+    pass
 
 
 class Iphone(models.Model):

@@ -4,14 +4,14 @@
 {% block content %}
  <div class="container">
       <div class="home">
-          <h1> Welcome to my Iphone_Store</h1>
+          <h1> Welcome to my iPhone_Store</h1>
           <h2><a href="{% url 'home' %}">Home</a></h2>
           <div class="info">
               <p>Info live : </p>
                   <p class="sep_deb">client(s) : {{ clients.count }} </p>
                   <p class="sep_deb">client(s) moratoires : {{ mora.count }}</p>
                   <p class="sep_deb">
-                      rupture de stock :
+                      rupture de stock ({{stock.count}}) :
                       {% for st in stock %}
                         <span>
                             {{ st.model }}
@@ -49,7 +49,7 @@
              <th>Ime</th>
              <th>Model</th>
              <th>Category</th>
-             <th>Taille</th>
+             <th>Capacite</th>
              <th>Stock</th>
              <th>Prix Acquisition</th>
              <th>Prix Marcher</th>
