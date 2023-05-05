@@ -37,12 +37,13 @@
              <a href="{% url 'versement_add' %}" class="sep_fin">New_Versement</a>
          </div>
          <div class="righter">
-             <a href="{% url 'register' %}">Register</a>
+             <!--<a href="{% url 'register' %}">Register</a> -->
+             <input type="text" value="" id="search">
              <a href="{% url 'logout_user' %}" id="active">Logout</a>
          </div>
      </div>
      <div class="annuler"></div>
-     <table class="tab-home">
+     <table class="tab-home" id="tab_id">
          <thead>
             <caption>Iphones: Model et prix marcher</caption>
             <tr>
@@ -81,3 +82,37 @@
 
 
 {% endblock %}
+{% block javascript %}
+ <script>
+     var table =  document.getElementById('tab_id');
+     var search = document.getElementById('search');
+     var tr = document.getElementsByTagName('tr');
+     search.addEventListener('input', function()
+     {
+        var filter = search.value.toUpperCase();
+        for(let i=1; i<tr.length; i++)
+        {
+            td = tr[i].getElementsByTagName('td')[1];
+            if(td)
+            {
+                textValue = td.textContent || td.innerText;
+                if (textValue.toUpperCase().indexOf(filter) > -1)
+                {
+                    tr[i].style.display = "";
+                }
+                else
+                {
+                    tr[i].style.display = "none";
+                }
+            }
+
+        }
+
+
+
+
+     }
+   )
+
+ </script>
+{% endblock javascript %}

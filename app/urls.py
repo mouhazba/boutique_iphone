@@ -8,7 +8,6 @@ urlpatterns = [
     path('home', home, name='home'),
     path('logout', logout_user, name='logout_user'),
     path('register', register, name='register'),
-    #path('register/?(P<opt>)/$', register, name='register'),
 
     path('iphone_add', iphone_add, name='iphone_add'),
     path('iphone/<int:id_iphone>', iphone_update, name='iphone_update'),

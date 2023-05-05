@@ -1,0 +1,12 @@
+   var filter = search.value.toUpperCase();
+        for(let i=1; i<table.rows.length; i++){
+            let row = table.rows[i];
+            let text = row.innerText.toUpperCase();
+
+            if(text.IndexOf(filter) >-1){
+                rows.style.display = '';
+            }
+            else{
+                rows.style.display = "none";
+            }
+        }

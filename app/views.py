@@ -49,12 +49,13 @@ def register(request):
 
 #@user_passes_test(lambda u: u.username == "mahadiou" or u.username == 'abass')
 def home(request):
-    iphones = Iphone.objects.all()
-    stock = iphones.filter(stock__lte=0)
+    iphones_list = Iphone.objects.all()
+    stock = iphones_list.filter(stock__lte=0)
 
     clients = Client.objects.all()
-    mora = Moratoire.objects.all()
-    return render(request, 'app/home.html', {'iphones': iphones, 'stock': stock, 'clients': clients, 'mora': mora})
+    clients_moratoire = Moratoire.objects.all()
+    return render(request, 'app/home.html',
+                  {'iphones': iphones_list, 'stock': stock, 'clients': clients, 'mora': clients_moratoire})
 
 
 def iphone_add(request):
@@ -65,7 +66,7 @@ def iphone_add(request):
             form.save()
             return redirect('home')
         else:
-            msg = "erreur"
+            msg = "error"
     else:
         form = IphoneForm()
     return render(request, 'app/iphones/iphone_add.html', {'form': form, 'msg': msg})
@@ -102,7 +103,7 @@ def client_add(request):
                 form = ClientForm()
                 return render(request, 'app/clients/client_add.html', {'info_stock': info_stock, 'form': form})
         else:
-            info_stock = 'Erreur'
+            info_stock = 'Error'
             form = ClientForm()
             return render(request, 'app/clients/client_add.html', {'info_stock': info_stock, 'form': form})
     else:
@@ -111,8 +112,8 @@ def client_add(request):
 
 
 def client_list(request):
-    clients = Client.objects.all()
-    return render(request, 'app/clients/client_list.html', {'clients': clients})
+    clients_list = Client.objects.all()
+    return render(request, 'app/clients/client_list.html', {'clients': clients_list})
 
 
 def client_edit(request, id_client):
@@ -122,19 +123,19 @@ def client_edit(request, id_client):
     form = ClientForm(request.POST or None, instance=client)
     if form.is_valid():
         f = form.save(commit=False)
-        tmp_stock = f.iphone.stock
+        # tmp_stock = f.iphone.stock
 
         if f.iphone.stock and f.quantity <= f.iphone.stock:
             if f.quantity > tmp_qtty_client:
-                diff = f.quantity - tmp_qtty_client
-                f.iphone.stock -= diff
+                diff_qtty = f.quantity - tmp_qtty_client
+                f.iphone.stock -= diff_qtty
                 f.iphone.save()
                 f.save()
                 return redirect('client_list')
 
             elif f.quantity < tmp_qtty_client:
-                diff = tmp_qtty_client - f.quantity
-                f.iphone.stock += diff
+                diff_qtty = tmp_qtty_client - f.quantity
+                f.iphone.stock += diff_qtty
                 f.iphone.save()
                 f.save()
                 return redirect('client_list')
@@ -184,8 +185,8 @@ def client_moratoire_add(request):
 
 
 def client_list_moratoire(request):
-    clients_moratoire = Moratoire.objects.all()
-    return render(request, 'app/moratoires/moratoire_list.html', {'clients': clients_moratoire})
+    clients_moratoire_list = Moratoire.objects.all()
+    return render(request, 'app/moratoires/moratoire_list.html', {'clients': clients_moratoire_list})
 
 
 def client_moratoire_edit(request, id_client):
@@ -195,20 +196,20 @@ def client_moratoire_edit(request, id_client):
     form = MoratoireForm(request.POST or None, instance=client)
     if form.is_valid():
         f = form.save(commit=False)
-        tmp_stock = f.iphone.stock
+        # tmp_stock = f.iphone.stock
 
         if f.iphone.stock and f.quantity <= f.iphone.stock:
             if f.quantity > tmp_qtty_client:
-                diff = f.quantity - tmp_qtty_client
-                f.iphone.stock -= diff
+                diff_qtty = f.quantity - tmp_qtty_client
+                f.iphone.stock -= diff_qtty
                 f.restant = f.montant - f.avance
                 f.iphone.save()
                 f.save()
                 return redirect('moratoire_list')
 
             elif f.quantity < tmp_qtty_client:
-                diff = tmp_qtty_client - f.quantity
-                f.iphone.stock += diff
+                diff_qtty = tmp_qtty_client - f.quantity
+                f.iphone.stock += diff_qtty
                 f.restant = f.montant - f.avance
                 f.iphone.save()
                 f.save()
@@ -245,33 +246,41 @@ def versement_add(request):
     msg = None
     info_stock = None
     if request.method == "POST":
-        client_id = request.POST['client_moratoire']
+        # we get the client_moratoire_object  from the request
+        client_moratoire_id = request.POST['client_moratoire']
         form = VersementForm(request.POST or None)
-        moratoire_id = get_object_or_404(Moratoire, id=client_id)
-        v_list = Versement.objects.all().filter(restant_v__gte=0)
+        # we get the client_moratoire_id  from the object request sent
+        moratoire_id = get_object_or_404(Moratoire, id=client_moratoire_id)
+        # we retrieve the list of clients whose payment is greater than zero
+        versement_list_of_restant = Versement.objects.all().filter(restant_v__gte=0)
+        # and we filter them by their phone number
         tel = moratoire_id.tel
 
         def get_Restant():
-            for v in v_list:
-                if v.client_moratoire.tel == tel:
-                    restantX = v.restant_v
+            """
+                from what is above
+                we check if the sent customer is already present in the list of payments
+            """
+            for versement in versement_list_of_restant:
+                if versement.client_moratoire.tel == tel:
+                    restantX = versement.restant_v
                     return restantX
             return 0
 
         restant = get_Restant()
 
         if form.is_valid():
-            fv = form.save(commit=False)
-            if fv.client_moratoire.restant != 0:
-                if fv.versement != 0:
+            f = form.save(commit=False)
+            if f.client_moratoire.restant != 0:
+                if f.versement != 0:
                     if restant == 0:
-                        fv.restant_v = fv.client_moratoire.restant - fv.versement
-                        fv.save()
+                        f.restant_v = f.client_moratoire.restant - f.versement
+                        f.save()
                         return redirect('versement_list')
 
                     else:
-                        fv.restant_v = restant - fv.versement
-                        fv.save()
+                        f.restant_v = restant - f.versement
+                        f.save()
                         return redirect('versement_list')
 
                 else:
@@ -283,7 +292,7 @@ def versement_add(request):
                 form = VersementForm()
                 return render(request, 'app/versements/versement_add.html', {'info_stock': info_stock, 'form': form})
         else:
-            msg = "erreur"
+            msg = "error"
     else:
         form = VersementForm()
 
@@ -291,8 +300,8 @@ def versement_add(request):
 
 
 def versement_list(request):
-    clients_moratoire = Versement.objects.all()
-    return render(request, 'app/versements/versement_list.html', {'clients': clients_moratoire})
+    clients_moratoire_list = Versement.objects.all()
+    return render(request, 'app/versements/versement_list.html', {'clients': clients_moratoire_list})
 
 
 def versement_delete(request, id_client):
